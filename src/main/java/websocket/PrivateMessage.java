@@ -10,7 +10,7 @@ import user.User;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PrivateMessage {
+public class PrivateMessage { // 귓속말
 	private int senderId;
 	private int receiverId;
 	private String priContent;

@@ -9,17 +9,17 @@ import java.util.List;
 
 public interface ChatMapper {
 
-    // 모든 메시지 저장
+    // 모든 메시지 저장(단체 채팅방)
     @Insert("INSERT INTO messages (post_id, sender_id, content, sent_at) " +
             "VALUES (#{postId}, #{senderId}, #{content}, #{sentAt})")
     void insertMessage(Message message);
     
-    // 귓속말 메시지 저장
+    // 귓속말 메시지 저장(단체 채팅방)
     @Insert("INSERT INTO private_message (sender_id, receiver_id, pri_content, pri_sent_at) " +
             "VALUES (#{senderId}, #{receiverId}, #{priContent}, #{priSentAt})")
     void insertPrivateMessage(PrivateMessage privateMessage);
 
-    // 채팅방 입장
+    // 단체 채팅방 입장
     @Insert("INSERT INTO conversations (post_id, writeuser_id, guestuser_id , roomInTime) " +
             "VALUES (#{post_id}, #{writeuser_id}, #{guestuser_id}, #{roomInTime})")
     void insertChatroom(Conversations conversations);

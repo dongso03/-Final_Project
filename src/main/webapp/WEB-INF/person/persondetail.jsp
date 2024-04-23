@@ -202,7 +202,8 @@ prefix="c"%> <%@ page isELIgnored="true"%>
         <button class="action" id="friendbtn" style="border-radius: 10px">
           친구추가
         </button>
-        <div class="action" style="border-radius: 10px">대화신청</div>
+        <button class="action" id="chatbtn" style="border-radius: 10px"
+         onclick="openPersonalChatWindow()">대화신청</button>
         <div class="action" style="border-radius: 10px">블랙리스트등록</div>
       </div>
     </div>
@@ -429,10 +430,7 @@ prefix="c"%> <%@ page isELIgnored="true"%>
         .then((response) => {
           if (response.ok) {
             response.json().then((data) => {
-            	friendbtn.innerText = "일대일 채팅";              
             	alert(JSON.stringify(data)); // 데이터를 문자열로 변환하여 출력
-            	
-            	
             });
           } else {
             response.json().then((errorData) => {
@@ -449,7 +447,6 @@ prefix="c"%> <%@ page isELIgnored="true"%>
     document.addEventListener("DOMContentLoaded", function() {
         // 쿠키에서 닉네임 가져오기
         const currentUserNickname  = getCookieValue("nickname");
-        console.log(usernickname);
     });
 
     // 쿠키에서 특정 이름의 값 가져오는 함수
@@ -463,19 +460,21 @@ prefix="c"%> <%@ page isELIgnored="true"%>
         }
         return null;
     }
-   
-  /*   let PriChatWindow = null;
-    var userid = urlParmas.get("userid");
-    function PriChatWindow() {
-    	const currentUserNickname  = getCookieValue("nickname");
-    	const OpponentNickname = document.getElementById("nickname");
-    	if (!PriChatWindow || PriChatWindow.closed) {
-            const url = "PriChatWindow?&userid=" + userid; // URL에 게시물 ID 추가
-            PriChatWindow = window.open(url, "", "width=386, height=564"); // 채팅 창 열기
-        } else {
-        	PriChatWindow.focus();
-        }   
-    } */
+    
+    let personalChatWindow = null;
+    // 채팅창 열기 함수
+    function openPersonalChatWindow() {
+    const currentUserNickname = getCookieValue("nickname"); // 내 닉네임 가져오기
+    const chatAddr = '<%=application.getInitParameter("CHAT_ADDR")%>'; // 채팅 서버 주소 가져오기
+    if (!personalChatWindow || personalChatWindow.closed) {
+        const url = "PersonalChatWindow?&userid=" + userid; // 대화창 열기 URL 생성
+        personalChatWindow = window.open(url, "", "width=386, height=564"); // 대화창 열기
+    } else {
+        personalChatWindow.focus();
+    }
+}
+
+
     
   </script>
   <!-- 페이지 번호 -->
